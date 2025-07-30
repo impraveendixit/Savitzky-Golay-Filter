@@ -17,26 +17,5 @@ if (CYGWIN)
     set(CMAKE_STATIC_LINKER_FLAGS "${CMAKE_STATIC_LINKER_FLAGS} -lc -lcygwin")
 endif()
 
-# Fetch GoogleTest
-include(FetchContent)
-FetchContent_Declare(
-    googletest
-    GIT_REPOSITORY https://github.com/google/googletest.git
-    GIT_TAG release-1.12.1
-)
-FetchContent_MakeAvailable(googletest)
-
-# Fetch FFF (Fake Function Framework)
-FetchContent_Declare(
-    fff
-    GIT_REPOSITORY https://github.com/meekrosoft/fff.git
-    GIT_TAG master
-)
-FetchContent_MakeAvailable(fff)
-
-# Include subdirectories
-add_subdirectory(src/iterative)
-add_subdirectory(test/iterative)
-
-# Enable testing
-enable_testing()
+add_library(SG_filter STATIC src/iterative/savgolFilter.c)
+target_include_directories(SG_filter PUBLIC include/iterative)
